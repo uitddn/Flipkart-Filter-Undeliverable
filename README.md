@@ -2,6 +2,16 @@
 
 A Manifest V3 browser extension that checks products on Flipkart search pages against a delivery pincode and marks their delivery status.
 
+## Screenshots
+
+### Extension settings
+
+![The extension popup with pincode, concurrency, and hide-undeliverable options](Screenshot/Screenshot%202026-11-21%20194107.png)
+
+### Delivery results on a Flipkart search page
+
+![Flipkart search results with deliverable and undeliverable badges](Screenshot/Screenshot%202026-11-21%20194210.png)
+
 ## Features
 
 - Save a six-digit pincode in the browser.
