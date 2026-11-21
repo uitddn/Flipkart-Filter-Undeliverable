@@ -1,10 +1,16 @@
 const form = document.querySelector("#settings-form");
 const pincodeInput = document.querySelector("#pincode");
+const hideUndeliverableInput = document.querySelector("#hide-undeliverable");
 const scanButton = document.querySelector("#scan");
 const status = document.querySelector("#status");
 
-chrome.storage.local.get("pincode").then(({ pincode }) => {
+chrome.storage.local.get(["pincode", "hideUndeliverable"]).then(({ pincode, hideUndeliverable }) => {
   if (pincode) pincodeInput.value = pincode;
+  hideUndeliverableInput.checked = hideUndeliverable === true;
+});
+
+hideUndeliverableInput.addEventListener("change", async () => {
+  await chrome.storage.local.set({ hideUndeliverable: hideUndeliverableInput.checked });
 });
 
 form.addEventListener("submit", async (event) => {

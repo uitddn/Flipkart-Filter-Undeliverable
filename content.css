@@ -24,3 +24,7 @@
 .fkud-checking {
   background: #5f6368;
 }
+
+.fkud-hidden-product {
+  display: none !important;
+}

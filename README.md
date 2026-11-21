@@ -5,6 +5,7 @@ A Manifest V3 browser extension that checks products on Flipkart search pages ag
 ## Features
 
 - Save a six-digit pincode in the browser.
+- Optionally hide products confirmed as undeliverable; toggle this setting in the extension popup.
 - Check products from the currently loaded Flipkart search results page.
 - Open up to 10 product pages at a time in inactive tabs, then close each tab when its check finishes.
 - Show **Not deliverable**, **Deliverable**, or **Could not verify delivery** badges on search results.

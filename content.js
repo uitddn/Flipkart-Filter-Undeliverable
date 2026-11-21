@@ -1,5 +1,17 @@
 const badgeByUrl = new Map();
 let scanPort;
+let hideUndeliverable = false;
+
+chrome.storage.local.get({ hideUndeliverable: false }).then(({ hideUndeliverable: shouldHide }) => {
+  hideUndeliverable = shouldHide;
+  updateHiddenProducts();
+});
+
+chrome.storage.onChanged.addListener((changes, areaName) => {
+  if (areaName !== "local" || !changes.hideUndeliverable) return;
+  hideUndeliverable = changes.hideUndeliverable.newValue === true;
+  updateHiddenProducts();
+});
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === "START_SCAN") {
@@ -69,6 +81,37 @@ function setBadge(url, text, state) {
   badge.textContent = text;
   badge.className = `fkud-badge fkud-${state}`;
   badge.title = text;
+  badge.dataset.productUrl = url;
+  updateProductVisibility(badge);
+}
+
+function updateHiddenProducts() {
+  document.querySelectorAll(".fkud-badge[data-product-url]").forEach(updateProductVisibility);
+}
+
+function updateProductVisibility(badge) {
+  const link = [...document.querySelectorAll('a[href*="/p/"]')]
+    .find((candidate) => sameProduct(candidate.href, badge.dataset.productUrl));
+  if (!link) return;
+
+  const card = getProductCard(link);
+  card.classList.toggle("fkud-hidden-product", hideUndeliverable && badge.classList.contains("fkud-undeliverable"));
+}
+
+function getProductCard(link) {
+  let element = link;
+  while (element?.parentElement && element !== document.body) {
+    const parent = element.parentElement;
+    const elementProductCount = countProductLinks(element);
+    const parentProductCount = countProductLinks(parent);
+    if (elementProductCount === 1 && parentProductCount > 1) return element;
+    element = parent;
+  }
+  return link;
+}
+
+function countProductLinks(element) {
+  return (element.matches('a[href*="/p/"]') ? 1 : 0) + element.querySelectorAll('a[href*="/p/"]').length;
 }
 
 function sameProduct(left, right) {

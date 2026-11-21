@@ -24,6 +24,23 @@ label {
   font-weight: 600;
 }
 
+.toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  cursor: pointer;
+}
+
+.toggle-row input {
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  margin: 0;
+  flex: none;
+  accent-color: #2874f0;
+}
+
 .form-row {
   display: flex;
   gap: 8px;
