@@ -5,9 +5,10 @@ A Manifest V3 browser extension that checks products on Flipkart search pages ag
 ## Features
 
 - Save a six-digit pincode in the browser.
+- Choose 1–50 concurrent product checks (default: 10).
 - Optionally hide products confirmed as undeliverable; toggle this setting in the extension popup.
 - Check products from the currently loaded Flipkart search results page.
-- Open up to 10 product pages at a time in inactive tabs, then close each tab when its check finishes.
+- Open the configured number of product pages at a time in inactive tabs, then close each tab when its check finishes.
 - Show **Not deliverable**, **Deliverable**, or **Could not verify delivery** badges on search results.
 
 ## Install from source
@@ -20,7 +21,7 @@ A Manifest V3 browser extension that checks products on Flipkart search pages ag
 ## Use
 
 1. Open a Flipkart search results page.
-2. Select the extension icon, enter a six-digit pincode, and choose **Check this search page**.
+2. Select the extension icon, enter a six-digit pincode, set **Concurrent checks** from 1 to 50 (default: 10), and choose **Check this search page**.
 3. Keep the search tab open while checks run. Results appear on product cards as each check completes.
 
 The checker recognizes Flipkart's **Not deliverable in your location** message or **Change Address** action as undeliverable, and its **Buy now** action as deliverable. It reports ambiguous cases as **Could not verify delivery** rather than guessing.
@@ -36,7 +37,7 @@ The extension has no analytics, external services, or account of its own. It use
 ## Limitations
 
 - Checks are based on Flipkart's page UI and may need updates if Flipkart changes it.
-- Up to 10 simultaneous page checks may be throttled by Flipkart or use significant browser resources.
+- High concurrency settings may be throttled by Flipkart or use significant browser resources.
 - Delivery availability can change and should be confirmed on Flipkart before ordering.
 
 This is an independent community project and is not affiliated with or endorsed by Flipkart.

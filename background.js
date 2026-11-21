@@ -1,5 +1,5 @@
 let scanInProgress = false;
-const MAX_CONCURRENT_CHECKS = 10;
+const MAX_CONCURRENT_CHECKS = 50;
 
 chrome.runtime.onConnect.addListener((port) => {
   if (port.name === "delivery-scan") {
@@ -16,13 +16,20 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     return;
   }
 
+  if (!Number.isInteger(message.concurrentChecks)
+    || message.concurrentChecks < 1
+    || message.concurrentChecks > MAX_CONCURRENT_CHECKS) {
+    sendResponse({ message: `Concurrent checks must be between 1 and ${MAX_CONCURRENT_CHECKS}.` });
+    return;
+  }
+
   if (scanInProgress) {
     sendResponse({ message: "A scan is already running." });
     return;
   }
 
   scanInProgress = true;
-  sendResponse({ message: `Checking ${message.products.length} products...` });
+  sendResponse({ message: `Checking ${message.products.length} products with up to ${message.concurrentChecks} concurrent checks...` });
   checkProducts({ ...message, searchTabId })
     .catch((error) => console.error("Flipkart scan failed", error))
     .finally(() => {
@@ -30,7 +37,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     });
 });
 
-async function checkProducts({ products, pincode, searchTabId }) {
+async function checkProducts({ products, pincode, concurrentChecks, searchTabId }) {
   let nextIndex = 0;
   let completedCount = 0;
 
@@ -75,7 +82,7 @@ async function checkProducts({ products, pincode, searchTabId }) {
     }
   }
 
-  const workerCount = Math.min(MAX_CONCURRENT_CHECKS, products.length);
+  const workerCount = Math.min(concurrentChecks, products.length);
   await Promise.all(Array.from({ length: workerCount }, () => checkNextProduct()));
 
   await chrome.tabs.sendMessage(searchTabId, { type: "SCAN_COMPLETE" }).catch((error) => {

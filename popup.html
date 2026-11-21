@@ -13,8 +13,10 @@
         <label for="pincode">Delivery pincode</label>
         <div class="form-row">
           <input id="pincode" name="pincode" inputmode="numeric" autocomplete="postal-code" maxlength="6" pattern="[0-9]{6}" required>
-          <button type="submit">Save</button>
+          <button type="submit">Save settings</button>
         </div>
+        <label for="concurrent-checks">Concurrent checks (1–50)</label>
+        <input id="concurrent-checks" name="concurrentChecks" type="number" min="1" max="50" step="1" value="10" required>
       </form>
       <label class="toggle-row" for="hide-undeliverable">
         <input id="hide-undeliverable" type="checkbox">
@@ -22,7 +24,7 @@
       </label>
       <button id="scan" type="button">Check this search page</button>
       <p id="status" role="status" aria-live="polite"></p>
-      <p class="note">Checks up to 10 products at once in inactive tabs. If Flipkart already has a delivery address selected, results use that address. Unverified items are not marked as undeliverable.</p>
+      <p class="note">Choose 1–50 concurrent checks (default 10). High values may cause Flipkart to throttle requests. If Flipkart already has a delivery address selected, results use that address. Unverified items are not marked as undeliverable.</p>
     </main>
     <script src="popup.js"></script>
   </body>

@@ -23,7 +23,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     chrome.runtime.sendMessage({
       type: "QUEUE_SCAN",
       products,
-      pincode: message.pincode
+      pincode: message.pincode,
+      concurrentChecks: message.concurrentChecks
     }).then((response) => sendResponse(response));
     return true;
   }
