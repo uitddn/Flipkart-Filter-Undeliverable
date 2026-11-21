@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Flipkart Delivery Checker",
+  "version": "1.0.0",
+  "description": "Check Flipkart search results for delivery to your pincode.",
+  "permissions": ["storage", "tabs"],
+  "host_permissions": ["https://www.flipkart.com/*"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Flipkart Delivery Checker"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.flipkart.com/*"],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}

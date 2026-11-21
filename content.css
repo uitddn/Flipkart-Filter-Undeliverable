@@ -1,0 +1,26 @@
+.fkud-badge {
+  display: inline-block;
+  margin: 6px 4px;
+  padding: 5px 8px;
+  border-radius: 3px;
+  background: #5f6368;
+  color: white;
+  font: 600 12px/1.3 Arial, sans-serif;
+  vertical-align: middle;
+}
+
+.fkud-undeliverable {
+  background: #b3261e;
+}
+
+.fkud-deliverable {
+  background: #188038;
+}
+
+.fkud-unknown {
+  background: #5f6368;
+}
+
+.fkud-checking {
+  background: #5f6368;
+}

@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Flipkart Delivery Checker</title>
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <main>
+      <h1>Delivery checker</h1>
+      <form id="settings-form">
+        <label for="pincode">Delivery pincode</label>
+        <div class="form-row">
+          <input id="pincode" name="pincode" inputmode="numeric" autocomplete="postal-code" maxlength="6" pattern="[0-9]{6}" required>
+          <button type="submit">Save</button>
+        </div>
+      </form>
+      <button id="scan" type="button">Check this search page</button>
+      <p id="status" role="status" aria-live="polite"></p>
+      <p class="note">Checks up to 10 products at once in inactive tabs. If Flipkart already has a delivery address selected, results use that address. Unverified items are not marked as undeliverable.</p>
+    </main>
+    <script src="popup.js"></script>
+  </body>
+</html>
